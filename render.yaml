@@ -1,0 +1,17 @@
+# Separate service: this file does not deploy or purchase hosting.
+services:
+  - type: web
+    name: sygnal-private-phone-bridge
+    runtime: docker
+    plan: starter
+    region: ohio
+    dockerContext: ./relay/phone-bridge
+    dockerfilePath: ./relay/phone-bridge/Dockerfile
+    numInstances: 1
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: SYGNAL_SITE_ORIGIN
+        value: https://sygnaltrading.com
+      - key: ALLOWED_ORIGINS
+        value: https://sygnaltrading.com,https://www.sygnaltrading.com,https://sygnaltrading.lovable.app,https://id-preview--cb1d69be-7b02-4a54-847a-1825737d4155.lovable.app
